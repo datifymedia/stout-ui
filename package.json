@@ -1,0 +1,17 @@
+{
+  "name": "@stout/ui",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shared Datify light-theme UI. Tokens and components for Orbit and the other tools.",
+  "type": "module",
+  "exports": {
+    ".": "./src/html.js",
+    "./tokens.css": "./dist/tokens.css",
+    "./components.css": "./src/components.css"
+  },
+  "files": [
+    "src",
+    "dist",
+    "demo"
+  ]
+}

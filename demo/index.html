@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stout UI</title>
+  <link rel="stylesheet" href="../dist/tokens.css">
+  <link rel="stylesheet" href="../src/components.css">
+</head>
+<body class="stout">
+  <main class="page stack">
+    <header class="site-header">
+    <div class="brand">
+      <div class="brand-row">
+        <span class="mark">Orbit</span>
+        <span class="brand-divider" aria-hidden="true"></span>
+        <img class="partner-logo" alt="Ventrix" src="/partners/ventrix.png">
+      </div>
+      <p class="brand-sub">October lead sales</p>
+    </div>
+    <div class="header-aside"><p class="brand-sub">Last pulled from Ventrix 2:45 PM CT</p><span class="status-dot status-good"><span class="status-mark" aria-hidden="true"></span>Up to date</span></div>
+  </header>
+    <section class="card"><div class="metric">
+    <span class="metric-label">Expected payment from Ventrix</span>
+    <span class="metric-value num">$12,400</span>
+    <span class="metric-detail">We sold $18,000 in leads. Ventrix has returned $5,600 so far.</span>
+  </div></section>
+    <div class="metric">
+    <span class="metric-label">Returns so far</span>
+    <span class="metric-value is-title num">$640</span>
+    <span class="metric-detail">4 leads returned</span>
+  </div>
+    <span class="status-chip status-good">▲ Under budget</span>
+    <span class="status-chip status-watch">Near budget</span>
+    <span class="status-chip status-broken">Over budget</span>
+    <span class="status-dot status-good"><span class="status-mark" aria-hidden="true"></span>Up to date</span>
+    <span class="status-dot status-watch"><span class="status-mark" aria-hidden="true"></span>Not updated in 1h 12m</span>
+    <span class="status-dot status-broken"><span class="status-mark" aria-hidden="true"></span>No pull since 9:17 AM CT</span>
+    <button type="button" class="btn">Pull now</button>
+    <button type="button" class="btn btn-quiet">See run log</button>
+    <button type="button" class="btn" disabled>Unavailable</button>
+    <div class="banner" role="alert" data-status="broken">
+    <p class="status-broken">The portal rejected our login at 9:17 AM and every 15 min since.</p>
+    <div><button type="button" class="btn" id="pull-now">Pull now</button><button type="button" class="btn btn-quiet">See run log</button></div>
+  </div>
+    <div class="skeleton-block" aria-hidden="true"><span class="skeleton is-display"></span><span class="skeleton is-line"></span></div>
+    <p class="empty">No October sales yet</p>
+    <div class="month-picker" role="listbox"><button type="button" class="month-card" data-month-card="true">
+    <span class="month-card-name">July</span>
+    <span class="status-dot status-good"><span class="status-mark" aria-hidden="true"></span>Final</span>
+    <span class="month-card-value num">$181,823</span>
+    <span class="month-card-line">12.4% returned</span>
+  </button><button type="button" class="month-card is-selected" data-month-card="true" aria-current="true">
+    <span class="month-card-name">August</span>
+    <span class="status-dot status-watch"><span class="status-mark" aria-hidden="true"></span>Pending</span>
+    <span class="month-card-value num">$210,000</span>
+    <span class="month-card-line">18.2% returned</span>
+  </button><button type="button" class="month-card" data-month-card="true">
+    <span class="month-card-name">September</span>
+    <span class="status-dot status-watch"><span class="status-mark" aria-hidden="true"></span>Pending</span>
+    <span class="month-card-value num">$132,000</span>
+    <span class="month-card-line">16.1% returned</span>
+  </button><button type="button" class="month-card is-dashed" data-month-card="true">
+    <span class="month-card-name">October</span>
+    <span class="status-dot status-good"><span class="status-mark" aria-hidden="true"></span>Pending</span>
+    <span class="month-card-value num">—</span>
+    <span class="month-card-line">No October sales yet</span>
+  </button></div>
+    <section class="card"><table class="data-table"><thead><tr><th scope="col"><button type="button" class="sort" data-sort="school">School</button></th><th scope="col"><button type="button" class="sort" data-sort="returned">Returned</button></th></tr></thead><tbody><tr class="data-row" data-open="true"><td>West</td><td><span class="num">$1,200</span></td></tr><tr class="data-detail"><td colspan="2">Lead ID · Sold on · Value · Time to return</td></tr><tr class="data-row"><td>East</td><td><span class="num">$400</span></td></tr></tbody></table></section>
+    <div class="dialog" role="dialog" aria-label="Run log"><h2 class="section-title">Run log</h2><p>Newest first.</p></div>
+  </main>
+  <script type="module" src="../src/behavior.js"></script>
+</body>
+</html>

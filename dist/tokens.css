@@ -1,0 +1,89 @@
+/* Generated from packages/stout-ui/tokens.js. Do not edit by hand. */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+:root {
+  --color-page: #F7F7F5;
+  --color-card: #FFFFFF;
+  --color-hover: #F2F3F5;
+  --color-text: #14171F;
+  --color-secondary: #4A5263;
+  --color-label: #6B7280;
+  --color-accent: #2F5DE0;
+  --color-good: #1E8A5A;
+  --color-watch: #B7791F;
+  --color-broken: #C53D3D;
+  --font-family: Inter, sans-serif;
+  --font-size-display: 52px;
+  --font-size-title: 32px;
+  --font-size-section: 22px;
+  --font-size-body: 14px;
+  --font-size-label: 11px;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-48: 48px;
+  --space-64: 64px;
+  --radius-card: 8px;
+  --radius-control: 4px;
+  --motion-hover: 75ms;
+  --motion-state: 150ms;
+  --motion-max: 250ms;
+  --line: 1px solid rgb(0 0 0 / 10%);
+  --shadow-overlay: 0 var(--space-8) var(--space-24) rgb(20 23 31 / 12%);
+  --chart-band: color-mix(in srgb, var(--color-good) 16%, var(--color-card));
+  --chart-band-strong: color-mix(in srgb, var(--color-good) 28%, var(--color-card));
+  --layout-stack: calc(var(--space-64) * 12);
+}
+
+.stout {
+  margin: 0;
+  background: var(--color-page);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  font-size: var(--font-size-body);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stout *,
+  .stout *::before,
+  .stout *::after {
+    animation-duration: 0ms;
+    animation-delay: 0ms;
+    transition-duration: 0ms;
+  }
+}
+
+@media (max-width: 768px) {
+  .stout .split,
+  .stout .split-even,
+  .stout .site-header,
+  .stout .hero,
+  .stout .track {
+    flex-direction: column;
+  }
+
+  .stout .header-aside {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .stout .month-picker {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stout .track-line {
+    flex: 0 0 auto;
+    width: var(--space-4);
+    height: var(--space-16);
+    border-top: 0;
+    border-left: var(--line);
+  }
+
+  .stout .track-line.is-dashed {
+    border-left-style: dashed;
+  }
+}
