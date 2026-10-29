@@ -43,11 +43,12 @@ function statusChip(status, word) {
   return `<span class="status-chip status-${name}">${requireWord(word)}</span>`;
 }
 
-function button(label, { quiet = false, disabled = false, id = '' } = {}) {
+function button(label, { quiet = false, disabled = false, id = '', type = 'button' } = {}) {
   const classes = quiet ? 'btn btn-quiet' : 'btn';
   const extra = id ? ` id="${escapeHtml(id)}"` : '';
   const off = disabled ? ' disabled' : '';
-  return `<button type="button" class="${classes}"${extra}${off}>${escapeHtml(label)}</button>`;
+  const kind = type === 'submit' ? 'submit' : 'button';
+  return `<button type="${kind}" class="${classes}"${extra}${off}>${escapeHtml(label)}</button>`;
 }
 
 function banner(status, message, actions) {

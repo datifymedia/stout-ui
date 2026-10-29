@@ -1,5 +1,5 @@
 /* Generated from packages/stout-ui/tokens.js. Do not edit by hand. */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
 
 :root {
   --color-page: #F7F7F5;
@@ -12,11 +12,22 @@
   --color-good: #1E8A5A;
   --color-watch: #B7791F;
   --color-broken: #C53D3D;
+  --color-highlight: #FFE24D;
+  --color-canvas: #E7EAED;
+  --color-nested: #F3F5F7;
+  --color-quiet: #8A92A0;
+  --color-warn-strong: #B45309;
   --font-family: Inter, sans-serif;
+  --font-family-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
   --font-size-display: 52px;
+  --font-size-hero: 72px;
+  --font-size-hero-min: 46px;
   --font-size-title: 32px;
   --font-size-section: 22px;
+  --font-size-metric: 20px;
+  --font-size-word: 15px;
   --font-size-body: 14px;
+  --font-size-fine: 12px;
   --font-size-label: 11px;
   --space-4: 4px;
   --space-8: 8px;
@@ -26,6 +37,7 @@
   --space-48: 48px;
   --space-64: 64px;
   --radius-card: 8px;
+  --radius-sheet: 10px;
   --radius-control: 4px;
   --motion-hover: 75ms;
   --motion-state: 150ms;

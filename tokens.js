@@ -13,18 +13,30 @@ const tokens = {
     good: '#1E8A5A',
     watch: '#B7791F',
     broken: '#C53D3D',
+    highlight: '#FFE24D',
+    canvas: '#E7EAED',
+    nested: '#F3F5F7',
+    quiet: '#8A92A0',
+    warnStrong: '#B45309',
   },
   fontFamily: 'Inter, sans-serif',
+  fontFamilyMono: '"JetBrains Mono", ui-monospace, Menlo, monospace',
   fontSize: {
     display: 52,
+    hero: 72,
+    heroMin: 46,
     title: 32,
     section: 22,
+    metric: 20,
+    word: 15,
     body: 14,
+    fine: 12,
     label: 11,
   },
   space: [4, 8, 16, 24, 32, 48, 64],
   radius: {
     card: 8,
+    sheet: 10,
     control: 4,
   },
   motion: {
@@ -39,7 +51,7 @@ function buildCss() {
   const space = tokens.space.map((n) => `  --space-${n}: ${n}px;`).join('\n');
   const stack = tokens.space[tokens.space.length - 1] * 12;
   return `/* Generated from packages/stout-ui/tokens.js. Do not edit by hand. */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
 
 :root {
   --color-page: ${tokens.color.page};
@@ -52,14 +64,26 @@ function buildCss() {
   --color-good: ${tokens.color.good};
   --color-watch: ${tokens.color.watch};
   --color-broken: ${tokens.color.broken};
+  --color-highlight: ${tokens.color.highlight};
+  --color-canvas: ${tokens.color.canvas};
+  --color-nested: ${tokens.color.nested};
+  --color-quiet: ${tokens.color.quiet};
+  --color-warn-strong: ${tokens.color.warnStrong};
   --font-family: ${tokens.fontFamily};
+  --font-family-mono: ${tokens.fontFamilyMono};
   --font-size-display: ${size.display}px;
+  --font-size-hero: ${size.hero}px;
+  --font-size-hero-min: ${size.heroMin}px;
   --font-size-title: ${size.title}px;
   --font-size-section: ${size.section}px;
+  --font-size-metric: ${size.metric}px;
+  --font-size-word: ${size.word}px;
   --font-size-body: ${size.body}px;
+  --font-size-fine: ${size.fine}px;
   --font-size-label: ${size.label}px;
 ${space}
   --radius-card: ${tokens.radius.card}px;
+  --radius-sheet: ${tokens.radius.sheet}px;
   --radius-control: ${tokens.radius.control}px;
   --motion-hover: ${tokens.motion.hover}ms;
   --motion-state: ${tokens.motion.state}ms;
