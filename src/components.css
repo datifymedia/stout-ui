@@ -570,3 +570,72 @@
 .is-stale .chart-note {
   color: var(--color-secondary);
 }
+
+.num {
+  font-family: var(--font-family-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.hl {
+  position: relative;
+  z-index: 0;
+  padding: 0 var(--space-4);
+  margin-left: calc(var(--space-4) * -1);
+}
+
+.hl::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  top: 0.32em;
+  bottom: 0.08em;
+  background: var(--color-highlight);
+  border-radius: var(--radius-control);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: stout-wipe var(--motion-max) var(--motion-max) cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+@keyframes stout-wipe {
+  to { transform: scaleX(1); }
+}
+
+.dot-good,
+.dot-watch,
+.dot-broken,
+.dot-off {
+  width: var(--space-8);
+  height: var(--space-8);
+  border-radius: var(--radius-control);
+  flex: none;
+  display: inline-block;
+}
+
+.panel {
+  background: var(--color-card);
+  border: var(--line);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.dot-good { background: var(--color-good); }
+.dot-watch { background: var(--color-watch); }
+.dot-broken { background: var(--color-broken); }
+.dot-off { background: var(--color-label); }
+
+.mark-live {
+  width: var(--space-8);
+  height: var(--space-8);
+  border-radius: var(--radius-control);
+  background: var(--color-good);
+  display: inline-block;
+  animation: stout-pulse 2s infinite;
+}
+
+@keyframes stout-pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-good) 45%, transparent); }
+  70% { box-shadow: 0 0 0 var(--space-8) color-mix(in srgb, var(--color-good) 0%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-good) 0%, transparent); }
+}
