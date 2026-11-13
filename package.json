@@ -14,5 +14,9 @@
     "dist",
     "demo",
     "DATIFY-STANDARDS.md"
-  ]
+  ],
+  "scripts": {
+    "test": "node --test test/",
+    "build": "node scripts/build-tokens.js"
+  }
 }

@@ -20,12 +20,12 @@
 .metric-label,
 .label {
   display: block;
-  color: var(--color-label);
+  color: var(--color-secondary);
+  font-family: var(--font-family-mono);
   font-size: var(--font-size-label);
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font-weight: 500;
+  letter-spacing: 0;
   line-height: 1.2;
-  text-transform: uppercase;
 }
 
 .metric-value {
@@ -316,11 +316,11 @@
 }
 
 .data-table th {
-  color: var(--color-label);
+  color: var(--color-secondary);
+  font-family: var(--font-family-mono);
   font-size: var(--font-size-label);
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0;
 }
 
 .sort {

@@ -3,7 +3,7 @@
 
 const tokens = {
   color: {
-    page: '#F7F7F5',
+    page: '#E7EBF0',
     card: '#FFFFFF',
     hover: '#F2F3F5',
     text: '#14171F',
@@ -13,30 +13,35 @@ const tokens = {
     good: '#1E8A5A',
     watch: '#B7791F',
     broken: '#C53D3D',
-    highlight: '#FFE24D',
-    canvas: '#E7EAED',
-    nested: '#F3F5F7',
-    quiet: '#8A92A0',
-    warnStrong: '#B45309',
+    highlight: '#FFE14A',
+    // Aliases kept for the Hub's stylesheet. Their values are rulebook values:
+    // canvas = page, nested = hover, quiet = label, warnStrong = watch.
+    canvas: '#E7EBF0',
+    nested: '#F2F3F5',
+    quiet: '#6B7280',
+    warnStrong: '#B7791F',
   },
   fontFamily: 'Inter, sans-serif',
-  fontFamilyMono: '"JetBrains Mono", ui-monospace, Menlo, monospace',
+  fontFamilyMono: '"IBM Plex Mono", ui-monospace, Menlo, monospace',
+  // DATIFY-STANDARDS.md §9: sizes are 52 / 40 / 32 / 22 / 14 / 13 only.
+  // The named steps map onto that scale; nothing else exists.
   fontSize: {
     display: 52,
-    hero: 72,
-    heroMin: 46,
+    hero: 52,
+    heroMin: 40,
     title: 32,
     section: 22,
-    metric: 20,
-    word: 15,
+    metric: 22,
+    word: 14,
     body: 14,
-    fine: 12,
-    label: 11,
+    fine: 13,
+    label: 13,
   },
   space: [4, 8, 16, 24, 32, 48, 64],
+  // §9: 2px panels, 4px chips and buttons.
   radius: {
-    card: 8,
-    sheet: 10,
+    card: 2,
+    sheet: 2,
     control: 4,
   },
   motion: {
@@ -51,7 +56,7 @@ function buildCss() {
   const space = tokens.space.map((n) => `  --space-${n}: ${n}px;`).join('\n');
   const stack = tokens.space[tokens.space.length - 1] * 12;
   return `/* Generated from packages/stout-ui/tokens.js. Do not edit by hand. */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap");
 
 :root {
   --color-page: ${tokens.color.page};
