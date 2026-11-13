@@ -9,7 +9,9 @@
   grid-template-areas:
     "bar bar"
     "side main";
-  background: var(--color-page);
+  /* The side column reads white to the bottom of the page even when the
+     sticky menu is shorter than the content. */
+  background: linear-gradient(to right, var(--color-card) var(--layout-side), var(--color-page) var(--layout-side));
   color: var(--color-text);
   font-family: var(--font-family);
   font-size: var(--font-size-body);
@@ -332,6 +334,7 @@
 /* ---------- phone (≤ 800px): the side menu becomes a scrolling row under the bar ---------- */
 @media (max-width: 800px) {
   .frame {
+    background: var(--color-page);
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: var(--layout-bar) auto minmax(0, 1fr);
     grid-template-areas:
