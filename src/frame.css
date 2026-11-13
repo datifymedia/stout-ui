@@ -1,0 +1,400 @@
+/* The Datify frame (src/frame.js). Tokens only: no hex, size, spacing, radius
+   or duration that is not in dist/tokens.css. Light theme only. */
+
+.frame {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: var(--layout-side) minmax(0, 1fr);
+  grid-template-rows: var(--layout-bar) minmax(0, 1fr);
+  grid-template-areas:
+    "bar bar"
+    "side main";
+  background: var(--color-page);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  font-size: var(--font-size-body);
+  line-height: 1.4;
+}
+
+/* ---------- bar: --layout-bar tall, white, --rule-strong along the bottom ---------- */
+.frame-bar {
+  grid-area: bar;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  height: var(--layout-bar);
+  padding: 0 var(--space-24);
+  background: var(--color-card);
+  border-bottom: var(--rule-strong);
+  box-sizing: border-box;
+}
+
+.frame-brand {
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: var(--font-size-section);
+  letter-spacing: 0;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.frame-command {
+  position: relative;
+  flex: 1 1 auto;
+  max-width: var(--layout-command);
+  margin: 0 auto;
+}
+
+.frame-command-input {
+  width: 100%;
+  box-sizing: border-box;
+  height: var(--space-32);
+  padding: 0 var(--space-48) 0 var(--space-8);
+  border: var(--line);
+  border-radius: var(--radius-control);
+  background: var(--color-hover);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.frame-command-input:focus {
+  outline: var(--line);
+  outline-color: var(--color-accent);
+  background: var(--color-card);
+}
+
+.frame-kbd {
+  position: absolute;
+  right: var(--space-8);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-label);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-label);
+}
+
+.frame-bar-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.frame-vega,
+.frame-account-name {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--space-48);
+  padding: 0 var(--space-8);
+  color: var(--color-secondary);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--motion-hover);
+}
+
+.frame-vega:hover,
+.frame-account-name:hover {
+  color: var(--color-text);
+}
+
+.frame-vega {
+  color: var(--color-accent);
+  white-space: nowrap;
+}
+
+.frame-account {
+  position: relative;
+}
+
+.frame-account-name {
+  list-style: none;
+}
+
+.frame-account-name::-webkit-details-marker {
+  display: none;
+}
+
+.frame-menu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  min-width: var(--layout-menu);
+  padding: var(--space-8) 0;
+  background: var(--color-card);
+  border: var(--line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-overlay);
+}
+
+.frame-menu a,
+.frame-menu button {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: var(--space-48);
+  padding: 0 var(--space-16);
+  border: 0;
+  background: none;
+  color: var(--color-text);
+  font: inherit;
+  line-height: var(--space-48);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.frame-menu a:hover,
+.frame-menu button:hover {
+  background: var(--color-hover);
+}
+
+.frame-menu form {
+  margin: 0;
+}
+
+/* ---------- side menu: the nine sections ---------- */
+.frame-side {
+  grid-area: side;
+  position: sticky;
+  top: var(--layout-bar);
+  align-self: start;
+  height: calc(100vh - var(--layout-bar));
+  box-sizing: border-box;
+  padding: var(--space-16) 0;
+  background: var(--color-card);
+  border-right: var(--line);
+  overflow-y: auto;
+}
+
+.frame-side ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.frame-section {
+  display: flex;
+  align-items: center;
+  min-height: var(--space-48);
+  padding: 0 var(--space-24);
+  color: var(--color-secondary);
+  font-weight: 500;
+  text-decoration: none;
+  border-left: var(--rule-strong);
+  border-left-color: transparent;
+  transition: color var(--motion-hover), background var(--motion-hover);
+}
+
+.frame-section:hover {
+  color: var(--color-text);
+  background: var(--color-hover);
+}
+
+.frame-section[aria-current="page"] {
+  color: var(--color-text);
+  font-weight: 600;
+  border-left-color: var(--color-text);
+}
+
+/* ---------- main column ---------- */
+.frame-main {
+  grid-area: main;
+  min-width: 0;
+  padding: var(--space-24) var(--space-24) var(--space-64);
+}
+
+/* ---------- the one toolbar ---------- */
+.frame-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-16);
+  min-height: var(--space-48);
+  margin-bottom: var(--space-24);
+  color: var(--color-secondary);
+}
+
+.frame-fresh {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-label);
+}
+
+.frame-fresh .dot {
+  width: var(--space-8);
+  height: var(--space-8);
+  border-radius: var(--space-8);
+  background: var(--color-good);
+}
+
+.frame-fresh .dot.is-watch { background: var(--color-watch); }
+.frame-fresh .dot.is-broken { background: var(--color-broken); }
+
+.frame-range {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  border-bottom: var(--line);
+}
+
+.frame-tab {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--space-48);
+  margin-bottom: calc(-1 * var(--space-4) / 4);
+  color: var(--color-secondary);
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: var(--rule-strong);
+  border-bottom-color: transparent;
+  cursor: pointer;
+  list-style: none;
+  transition: color var(--motion-hover);
+}
+
+.frame-tab::-webkit-details-marker { display: none; }
+.frame-tab:hover { color: var(--color-text); }
+
+.frame-tab[aria-current="true"] {
+  color: var(--color-text);
+  font-weight: 600;
+  border-bottom-color: var(--color-text);
+}
+
+.frame-custom {
+  position: relative;
+}
+
+.frame-custom-form {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  z-index: 1;
+  display: flex;
+  gap: var(--space-8);
+  align-items: end;
+  padding: var(--space-16);
+  background: var(--color-card);
+  border: var(--line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-overlay);
+}
+
+.frame-custom-form label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  font-size: var(--font-size-label);
+  font-family: var(--font-family-mono);
+}
+
+.frame-custom-form input,
+.frame-custom-form button {
+  min-height: var(--space-32);
+  padding: 0 var(--space-8);
+  border: var(--line);
+  border-radius: var(--radius-control);
+  background: var(--color-card);
+  font: inherit;
+}
+
+.frame-custom-form button {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-card);
+  cursor: pointer;
+}
+
+.frame-bots {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--space-32);
+  padding: 0 var(--space-8);
+  border: var(--line);
+  border-radius: var(--radius-control);
+  color: var(--color-secondary);
+  text-decoration: none;
+  transition: color var(--motion-hover), border-color var(--motion-hover);
+}
+
+.frame-bots:hover,
+.frame-bots[aria-pressed="true"] {
+  color: var(--color-text);
+  border-color: var(--color-text);
+}
+
+/* ---------- phone (≤ 800px): the side menu becomes a scrolling row under the bar ---------- */
+@media (max-width: 800px) {
+  .frame {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: var(--layout-bar) auto minmax(0, 1fr);
+    grid-template-areas:
+      "bar"
+      "side"
+      "main";
+  }
+
+  .frame-bar {
+    padding: 0 var(--space-16);
+    gap: var(--space-8);
+  }
+
+  .frame-command {
+    max-width: none;
+  }
+
+  .frame-kbd {
+    display: none;
+  }
+
+  .frame-side {
+    position: sticky;
+    top: var(--layout-bar);
+    height: auto;
+    padding: 0 var(--space-16);
+    border-right: 0;
+    border-bottom: var(--line);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+  }
+
+  .frame-side::-webkit-scrollbar {
+    display: none;
+  }
+
+  .frame-side ul {
+    display: flex;
+    gap: var(--space-16);
+  }
+
+  .frame-section {
+    padding: 0;
+    border-left: 0;
+    border-bottom: var(--rule-strong);
+    border-bottom-color: transparent;
+    white-space: nowrap;
+  }
+
+  .frame-section[aria-current="page"] {
+    border-bottom-color: var(--color-text);
+  }
+
+  .frame-main {
+    padding: var(--space-16) var(--space-16) var(--space-64);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frame *,
+  .frame *::before,
+  .frame *::after {
+    transition-duration: 0ms;
+  }
+}

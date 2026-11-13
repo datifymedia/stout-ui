@@ -49,6 +49,14 @@ const tokens = {
     state: 150,
     max: 250,
   },
+  // The frame (src/frame.js): bar height from §9; side menu, command bar and
+  // account menu widths are multiples of the spacing scale.
+  layout: {
+    bar: 56,
+    side: 192,
+    command: 480,
+    menu: 192,
+  },
 };
 
 function buildCss() {
@@ -94,7 +102,12 @@ ${space}
   --motion-state: ${tokens.motion.state}ms;
   --motion-max: ${tokens.motion.max}ms;
   --line: 1px solid rgb(0 0 0 / 10%);
+  --rule-strong: 2px solid ${tokens.color.text};
   --shadow-overlay: 0 var(--space-8) var(--space-24) rgb(20 23 31 / 12%);
+  --layout-bar: ${tokens.layout.bar}px;
+  --layout-side: ${tokens.layout.side}px;
+  --layout-command: ${tokens.layout.command}px;
+  --layout-menu: ${tokens.layout.menu}px;
   --chart-band: color-mix(in srgb, var(--color-good) 16%, var(--color-card));
   --chart-band-strong: color-mix(in srgb, var(--color-good) 28%, var(--color-card));
   --layout-stack: calc(var(--space-64) * 12);
