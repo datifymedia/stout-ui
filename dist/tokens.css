@@ -43,7 +43,12 @@
   --motion-state: 150ms;
   --motion-max: 250ms;
   --line: 1px solid rgb(0 0 0 / 10%);
+  --rule-strong: 2px solid #14171F;
   --shadow-overlay: 0 var(--space-8) var(--space-24) rgb(20 23 31 / 12%);
+  --layout-bar: 56px;
+  --layout-side: 192px;
+  --layout-command: 480px;
+  --layout-menu: 192px;
   --chart-band: color-mix(in srgb, var(--color-good) 16%, var(--color-card));
   --chart-band-strong: color-mix(in srgb, var(--color-good) 28%, var(--color-card));
   --layout-stack: calc(var(--space-64) * 12);

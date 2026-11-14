@@ -7,7 +7,10 @@
   "exports": {
     ".": "./src/html.js",
     "./tokens.css": "./dist/tokens.css",
-    "./components.css": "./src/components.css"
+    "./components.css": "./src/components.css",
+    "./frame": "./src/frame.js",
+    "./frame.css": "./src/frame.css",
+    "./frame-behavior.js": "./src/frame-behavior.js"
   },
   "files": [
     "src",
