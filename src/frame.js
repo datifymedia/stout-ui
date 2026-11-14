@@ -23,8 +23,8 @@ export const SECTIONS = [
 
 export const KINDS = new Set(['stats', 'tools', 'management']);
 
-function sectionList(hrefs, active) {
-  return SECTIONS.map(({ key, label }) => {
+function sectionList(hrefs, active, hidden) {
+  return SECTIONS.filter(({ key }) => key === active || !hidden.has(key)).map(({ key, label }) => {
     const href = hrefs[key] || `/${key}`;
     const current = key === active ? ' aria-current="page"' : '';
     return `<li><a class="frame-section" href="${escapeHtml(href)}"${current}>${escapeHtml(label)}</a></li>`;
@@ -41,6 +41,8 @@ function sectionList(hrefs, active) {
  * home: where the Datify name links (default "/").
  * command: { action, placeholder } — a GET form; omit for no command bar.
  * vega: href for Ask Vega; omit to hide it.
+ * hidden: section keys to leave out of the side menu (no real screen yet);
+ *   the active section always shows.
  * user: { name, menu: [{ label, href }], signOutAction } — the account menu.
  *   signOutAction is a POST form action. Omit user for a signed-out page.
  * toolbar: html from toolbar(), placed at the top of the main column.
@@ -55,8 +57,14 @@ export function frame({
   user = null,
   toolbar = '',
   body = '',
+  hidden = [],
 }) {
   if (!SECTIONS.some((s) => s.key === active)) throw new Error(`Unknown section: ${active}`);
+  // hidden: section keys a product leaves out of the side menu because they
+  // have no real screen yet. The active section is never hidden. The order
+  // and the nine keys stay fixed; hiding only skips entries.
+  const hiddenKeys = new Set(hidden);
+  for (const key of hiddenKeys) if (!SECTIONS.some((s) => s.key === key)) throw new Error(`Unknown section to hide: ${key}`);
   if (!KINDS.has(kind)) throw new Error(`Unknown screen kind: ${kind}`);
 
   const commandHtml = command
@@ -82,7 +90,7 @@ export function frame({
     ${commandHtml}
     <div class="frame-bar-right">${vegaHtml}${userHtml}</div>
   </header>
-  <nav class="frame-side" aria-label="Sections"><ul>${sectionList(hrefs, active)}</ul></nav>
+  <nav class="frame-side" aria-label="Sections"><ul>${sectionList(hrefs, active, hiddenKeys)}</ul></nav>
   <main class="frame-main">${toolbar}${body}</main>
 </div>`;
 }
