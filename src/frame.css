@@ -444,6 +444,13 @@
     display: none;
   }
 
+  /* Phone: tighter padding beside the 24px logo leaves the command bar room;
+     the link keeps its 44px height. */
+  .frame-brand {
+    margin-left: calc(var(--space-4) * -1);
+    padding: 0 var(--space-4);
+  }
+
   .frame-logo {
     height: var(--space-24);
   }
