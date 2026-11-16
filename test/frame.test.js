@@ -35,7 +35,7 @@ test('products place sections where they live; the bar has brand, command bar, A
   assert.match(html, /href="https:\/\/dash\.datify\.ai\/dashboard"( aria-current="page")?><svg[^>]*>.*?<\/svg><span class="frame-section-label">Dashboard</);
   assert.match(html, /href="\/dashboard\/team" aria-current="page"><svg[^>]*>.*?<\/svg><span class="frame-section-label">Team</);
   assert.match(html, /<a class="frame-brand" href="https:\/\/dash\.datify\.ai\/" aria-label="Datify — Go to dashboard" title="Go to dashboard">Datify<\/a>/, 'no logo URL: the word, still a labelled dashboard link');
-  assert.match(html, /<form class="frame-command" method="get" action="\/dashboard\/search" role="search">/);
+  assert.match(html, /<form class="frame-command" id="frame-command" method="get" action="\/dashboard\/search" role="search">/);
   assert.match(html, /<a class="frame-vega" href="\/dashboard\/team\?worker=vega">Ask Vega<\/a>/);
   assert.match(html, /<summary class="frame-account-name" aria-label="Dylan" title="Dylan"><span class="frame-avatar" aria-hidden="true">DY<\/span><svg class="frame-chevron" width="16"/);
   assert.match(html, /<div class="frame-menu-name">Dylan<\/div>/);
