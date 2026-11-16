@@ -24,6 +24,7 @@ const ICON_PATHS = {
   team: '<circle cx="12" cy="7.5" r="3"/><path d="M6.5 20a5.5 5.5 0 0 1 11 0"/><circle cx="5" cy="9.5" r="2"/><path d="M1.5 18A3.5 3.5 0 0 1 5 14.5"/><circle cx="19" cy="9.5" r="2"/><path d="M22.5 18a3.5 3.5 0 0 0-3.5-3.5"/>',
   person: PERSON,
   chevron: '<path d="m6 9 6 6 6-6"/>',
+  search: '<circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.4-4.4"/>',
 };
 
 function icon(name, size = 20, cls = 'frame-icon') {
@@ -132,11 +133,17 @@ export function frame({
   for (const key of hiddenKeys) if (!SECTIONS.some((s) => s.key === key)) throw new Error(`Unknown section to hide: ${key}`);
   if (!KINDS.has(kind)) throw new Error(`Unknown screen kind: ${kind}`);
 
+  // On a phone the form is hidden until the search button opens it (frame.css,
+  // frame-behavior.js); on wider screens the button is hidden and the form
+  // sits in the bar as always.
   const commandHtml = command
-    ? `<form class="frame-command" method="get" action="${escapeHtml(command.action)}" role="search">
+    ? `<form class="frame-command" id="frame-command" method="get" action="${escapeHtml(command.action)}" role="search">
       <input class="frame-command-input" type="search" name="q" placeholder="${escapeHtml(command.placeholder || 'Jump to…')}" aria-label="Command bar" autocomplete="off">
       <kbd class="frame-kbd" aria-hidden="true">⌘K</kbd>
     </form>`
+    : '';
+  const searchButton = command
+    ? `<button type="button" class="frame-search" aria-label="Search" aria-expanded="false" aria-controls="frame-command">${icon('search', 20, 'frame-search-icon')}</button>`
     : '';
   const vegaHtml = vega ? `<a class="frame-vega" href="${escapeHtml(vega)}">Ask Vega</a>` : '';
   const userName = user ? String(user.name || '').trim() || 'Account' : '';
@@ -156,7 +163,7 @@ export function frame({
   <header class="frame-bar">
     ${brand({ home, logo })}
     ${commandHtml}
-    <div class="frame-bar-right">${vegaHtml}${userHtml}</div>
+    <div class="frame-bar-right">${searchButton}${vegaHtml}${userHtml}</div>
   </header>
   <nav class="frame-side" aria-label="Sections"><ul>${sectionList(hrefs, active, hiddenKeys)}</ul></nav>
   <main class="frame-main">${toolbar}${body}</main>

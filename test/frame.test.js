@@ -154,3 +154,16 @@ test('the logo: one labelled dashboard link in the bar, the supplied image at it
   assert.match(css, /\.frame-brand:focus-visible \{/);
   assert.match(css, /\.frame-brand:hover \{/);
 });
+
+test('the phone search button: before Ask Vega, labelled, controls the command form; none without a command bar', async () => {
+  const { readFileSync } = await import('node:fs');
+  const html = frame({ active: 'team', kind: 'tools', user, body: '' });
+  assert.match(html, /<div class="frame-bar-right"><button type="button" class="frame-search" aria-label="Search" aria-expanded="false" aria-controls="frame-command"><svg[^>]*class="frame-search-icon"[\s\S]*?<\/svg><\/button><a class="frame-vega"/);
+  assert.match(html, /<form class="frame-command" id="frame-command"/);
+  assert.doesNotMatch(frame({ active: 'team', kind: 'tools', user, command: null, body: '' }), /frame-search|frame-command/);
+  const css = readFileSync(new URL('../src/frame.css', import.meta.url), 'utf8');
+  assert.match(css, /\.frame-search \{\s*display: none;/, 'hidden on wide screens');
+  assert.match(css, /\.frame-bar\.has-search-toggle\.is-search-open \.frame-command \{\s*display: block;/);
+  const js = readFileSync(new URL('../src/frame-behavior.js', import.meta.url), 'utf8');
+  assert.match(js, /is-search-open/);
+});
