@@ -35,12 +35,43 @@
 }
 
 .frame-brand {
+  /* The brand mark: one per screen, in the bar only. The link is a full
+     touch target (44px tall); the logo inside is 32px tall, 24px on phone. */
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  min-height: calc(var(--space-48) - var(--space-4));
+  margin-left: calc(var(--space-8) * -1);
+  padding: 0 var(--space-8);
+  border-radius: var(--radius-control);
   color: var(--color-text);
   font-weight: 600;
   font-size: var(--font-size-section);
   letter-spacing: 0;
   text-decoration: none;
   white-space: nowrap;
+  transition: background-color var(--motion-hover) ease-out;
+}
+
+.frame-brand:hover {
+  background: var(--color-hover);
+}
+
+.frame-brand:focus-visible {
+  outline: var(--rule-strong);
+  outline-color: var(--color-accent);
+  outline-offset: calc(var(--space-4) / 2);
+}
+
+/* The artwork has a white background; multiply lets that white take the
+   bar's white (or the hover gray) so it never shows as a box. The aspect
+   ratio comes from the width/height attributes: height set, width auto. */
+.frame-logo {
+  display: block;
+  height: var(--space-32);
+  width: auto;
+  max-width: none;
+  mix-blend-mode: multiply;
 }
 
 .frame-command {
@@ -411,6 +442,17 @@
 
   .frame-kbd {
     display: none;
+  }
+
+  /* Phone: tighter padding beside the 24px logo leaves the command bar room;
+     the link keeps its 44px height. */
+  .frame-brand {
+    margin-left: calc(var(--space-4) * -1);
+    padding: 0 var(--space-4);
+  }
+
+  .frame-logo {
+    height: var(--space-24);
   }
 
   .frame-side {

@@ -10,9 +10,11 @@
     "./components.css": "./src/components.css",
     "./frame": "./src/frame.js",
     "./frame.css": "./src/frame.css",
-    "./frame-behavior.js": "./src/frame-behavior.js"
+    "./frame-behavior.js": "./src/frame-behavior.js",
+    "./datify-logo.png": "./assets/datify-logo.png"
   },
   "files": [
+    "assets",
     "src",
     "dist",
     "demo",

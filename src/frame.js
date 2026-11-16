@@ -70,13 +70,37 @@ function sectionList(hrefs, active, hidden) {
 }
 
 /**
+ * The Datify logo (assets/datify-logo.png, exported as
+ * "@stout/ui/datify-logo.png"): the supplied artwork, trimmed of empty white
+ * margin only and scaled for sharp display at up to 4x. Never redrawn or
+ * retyped. Its pixel size fixes the aspect ratio the page reserves.
+ */
+export const LOGO = Object.freeze({ file: 'datify-logo.png', width: 521, height: 128 });
+
+/**
+ * The one brand mark: the logo as a link to the dashboard. `logo` is the URL
+ * a product serves assets/datify-logo.png at. The link's accessible name is
+ * "Datify — Go to dashboard"; the image itself is decorative inside it.
+ * Without a logo URL it falls back to the word "Datify" (a product that
+ * doesn't serve the file yet), never anything else.
+ */
+export function brand({ home = '/', logo = null } = {}) {
+  const label = 'Datify — Go to dashboard';
+  const mark = logo
+    ? `<img class="frame-logo" src="${escapeHtml(logo)}" alt="" width="${LOGO.width}" height="${LOGO.height}" decoding="async">`
+    : 'Datify';
+  return `<a class="frame-brand" href="${escapeHtml(home)}" aria-label="${label}" title="Go to dashboard">${mark}</a>`;
+}
+
+/**
  * The bar, the side menu, and the main column around `body`.
  *
  * active: one of the nine section keys. kind: stats | tools | management.
  * hrefs: { [sectionKey]: url } — a product fills in where each section lives
  *   (sections may be on other datify.ai hosts); missing keys fall back to
  *   `/<key>`.
- * home: where the Datify name links (default "/").
+ * home: the dashboard; where the logo links (default "/").
+ * logo: the URL the product serves the logo file at (see LOGO, brand()).
  * command: { action, placeholder } — a GET form; omit for no command bar.
  * vega: href for Ask Vega; omit to hide it.
  * hidden: section keys to leave out of the side menu (no real screen yet);
@@ -92,6 +116,7 @@ export function frame({
   kind,
   hrefs = {},
   home = '/',
+  logo = null,
   command = { action: '/search', placeholder: 'Jump to…' },
   vega = '/vega',
   user = null,
@@ -129,7 +154,7 @@ export function frame({
 
   return `<div class="frame" data-kind="${kind}" data-section="${active}">
   <header class="frame-bar">
-    <a class="frame-brand" href="${escapeHtml(home)}">Datify</a>
+    ${brand({ home, logo })}
     ${commandHtml}
     <div class="frame-bar-right">${vegaHtml}${userHtml}</div>
   </header>

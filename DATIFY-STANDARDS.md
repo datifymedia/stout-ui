@@ -121,6 +121,7 @@ sizes, or spacing.
 - The Deltos page puts EPC beside today’s revenue. Month math, each day, and the sub-id table show earnings per click. EPC is earned cents divided by clicks. In the by-day table, the month’s highest EPC day is marked High in green and the lowest is marked Low in amber. Red stays for something broken. A month with one rate has neither mark.
 - The side menu shows a 20px outline icon before each section name. The selected section is accent text and icon on the accent tint, semibold, with a 4px radius, inset 8px from the column edges. On a phone the menu is a scrolling strip with no icons, and the selected section keeps its ink underline.
 - The account menu opens from the person’s initials in a 32px circle and a small chevron. The full name is the button’s label and the first line of the open menu.
+- The Datify logo sits at the left of the bar, once per screen, and nowhere else in the frame. It is the supplied artwork (`assets/datify-logo.png`, only its empty white margin trimmed), never redrawn, retyped, recolored or given “.ai”. It is 32px tall (24px on a phone) at its own aspect ratio, with no badge or box: its white background blends into the white bar. It is one link to the dashboard, named “Datify — Go to dashboard”, with a 44px touch target, a gray hover fill and an accent focus ring. Products serve the file and pass its URL as the frame’s `logo`; the frame’s `brand()` is the only place it is drawn.
 
 **Terminal desk**
 - Ground is cool gray `#E7EBF0`. Cards stay white.
