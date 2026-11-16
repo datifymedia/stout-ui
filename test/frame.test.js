@@ -91,3 +91,12 @@ test('tokens.css defines what frame.css needs', () => {
   }
   assert.match(tokens, /--layout-bar: 56px/);
 });
+
+test('hidden: a product can leave sections without a screen out of the menu; the active one always shows', () => {
+  const html = frame({ active: 'advertisers', kind: 'stats', hidden: ['leads', 'money', 'outreach'] });
+  const labels = [...html.matchAll(/<a class="frame-section" [^>]*>([^<]+)<\/a>/g)].map((m) => m[1]);
+  assert.deepEqual(labels, ['Dashboard', 'Publishers', 'Offers', 'Advertisers', 'Reports', 'Team']);
+  const stillActive = frame({ active: 'money', kind: 'stats', hidden: ['money'] });
+  assert.match(stillActive, /aria-current="page">Money</);
+  assert.throws(() => frame({ active: 'team', kind: 'tools', hidden: ['nope'] }), /Unknown section to hide/);
+});
