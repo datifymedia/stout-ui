@@ -460,7 +460,8 @@
   .frame {
     background: var(--color-page);
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: var(--layout-bar) auto minmax(0, 1fr);
+    /* The bar row grows when the search opens; the strip below it moves down. */
+    grid-template-rows: auto auto minmax(0, 1fr);
     grid-template-areas:
       "bar"
       "side"
@@ -495,6 +496,12 @@
 
   .frame-bar.has-search-toggle.is-search-open .frame-command {
     display: block;
+  }
+
+  /* While the search is open the strip sits in flow under it instead of
+     sticking under the bar's usual height. */
+  .frame-bar.is-search-open ~ .frame-side {
+    position: static;
   }
 
   .frame-kbd {
