@@ -94,6 +94,8 @@ sizes, or spacing.
 - **Accent / system `#2F5DE0` — interactive and system only:** selected
   state, links, buttons, focus ring, sync, provenance. Blue never carries
   health meaning.
+- Accent tint: accent mixed 10% into white (about `#EAEFFC`), the fill
+  behind a selected item. Accent text on it is 4.85:1.
 - Status, used **only** when it means that, and **always with a word** (never
   color alone): good `#1E8A5A`, watch `#B7791F`, broken `#C53D3D`.
 
@@ -117,6 +119,8 @@ sizes, or spacing.
 - The month switcher is text on a hairline. The open month is ink, with a 2px rule that sits on that line. The others are secondary gray and turn darker on hover. Each target is 44px tall. No tray.
 - On the Ventrix desk, below the five cards, a white Deltos Partners strip shows Revenue today and MTD revenue in cents. The whole strip opens the Deltos page. Month math lists Ventrix gross, then Returns so far as a negative (returns already recorded against that month’s sold leads), then More returns expected. Expected shrink for a sold day is the higher of scrub_rate_bps times that day’s sold and the returns already recorded against that day. The rate defaults to 10% and applies to Ventrix sold after real-time rejections, so it covers in-month and post-close returns only. Rejections are a count with their reasons and $0, because Ventrix wipes CPL on those rows. “+ Leave-behind (Deltos)” stays before traffic cost. Estimated profit subtracts the expected shrink. A month Orbit marks final uses final cents minus traffic cost plus leave-behind. scrub_rate_bps is `post_close_rate_floor_bps`, which defaults to 1000 (10%) and is editable in admin settings. The desk says more returns expected are that rate of each sold day, unless returns already recorded are higher.
 - The Deltos page puts EPC beside today’s revenue. Month math, each day, and the sub-id table show earnings per click. EPC is earned cents divided by clicks. In the by-day table, the month’s highest EPC day is marked High in green and the lowest is marked Low in amber. Red stays for something broken. A month with one rate has neither mark.
+- The side menu shows a 20px outline icon before each section name. The selected section is accent text and icon on the accent tint, semibold, with a 4px radius, inset 8px from the column edges. On a phone the menu is a scrolling strip with no icons, and the selected section keeps its ink underline.
+- The account menu opens from the person’s initials in a 32px circle and a small chevron. The full name is the button’s label and the first line of the open menu.
 
 **Terminal desk**
 - Ground is cool gray `#E7EBF0`. Cards stay white.

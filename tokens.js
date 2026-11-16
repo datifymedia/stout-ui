@@ -108,6 +108,7 @@ ${space}
   --layout-side: ${tokens.layout.side}px;
   --layout-command: ${tokens.layout.command}px;
   --layout-menu: ${tokens.layout.menu}px;
+  --color-accent-tint: color-mix(in srgb, var(--color-accent) 10%, var(--color-card));
   --chart-band: color-mix(in srgb, var(--color-good) 16%, var(--color-card));
   --chart-band-strong: color-mix(in srgb, var(--color-good) 28%, var(--color-card));
   --layout-stack: calc(var(--space-64) * 12);

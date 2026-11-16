@@ -2,19 +2,25 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { frame, toolbar, SECTIONS } from '../src/frame.js';
+import { frame, toolbar, initials, SECTIONS } from '../src/frame.js';
 
 const user = { name: 'Dylan', menu: [{ label: 'Settings', href: '/settings' }], signOutAction: '/logout' };
 
 test('the side menu holds the nine sections in order, the active one marked', () => {
   const html = frame({ active: 'offers', kind: 'management', user, body: '<p>hi</p>' });
   assert.deepEqual(SECTIONS.map((s) => s.label), ['Dashboard', 'Publishers', 'Offers', 'Leads', 'Advertisers', 'Reports', 'Money', 'Outreach', 'Team']);
-  const links = [...html.matchAll(/<a class="frame-section" href="([^"]+)"( aria-current="page")?>([^<]+)<\/a>/g)];
+  const links = [...html.matchAll(/<a class="frame-section" href="([^"]+)"( aria-current="page")?>(<svg[^>]*>.*?<\/svg>)<span class="frame-section-label">([^<]+)<\/span><\/a>/g)]
+    .map(([, href, current, svg, label]) => [null, href, current, label, svg]);
   assert.equal(links.length, 9);
   assert.deepEqual(links.map((m) => m[3]), SECTIONS.map((s) => s.label));
   assert.equal(links.filter((m) => m[2]).length, 1);
   assert.equal(links.find((m) => m[2])[3], 'Offers');
   assert.equal(links[0][1], '/dashboard');
+  // Each section has its own outline icon before the label, hidden from screen readers.
+  for (const [, , , , svg] of links) {
+    assert.match(svg, /^<svg class="frame-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1\.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"/);
+  }
+  assert.equal(new Set(links.map((m) => m[4])).size, 9, 'one distinct icon per section');
 });
 
 test('products place sections where they live; the bar has brand, command bar, Ask Vega, account menu', () => {
@@ -26,12 +32,14 @@ test('products place sections where they live; the bar has brand, command bar, A
     vega: '/dashboard/team?worker=vega',
     body: '',
   });
-  assert.match(html, /href="https:\/\/dash\.datify\.ai\/dashboard"( aria-current="page")?>Dashboard</);
-  assert.match(html, /href="\/dashboard\/team" aria-current="page">Team</);
+  assert.match(html, /href="https:\/\/dash\.datify\.ai\/dashboard"( aria-current="page")?><svg[^>]*>.*?<\/svg><span class="frame-section-label">Dashboard</);
+  assert.match(html, /href="\/dashboard\/team" aria-current="page"><svg[^>]*>.*?<\/svg><span class="frame-section-label">Team</);
   assert.match(html, /<a class="frame-brand" href="https:\/\/dash\.datify\.ai\/">Datify<\/a>/);
   assert.match(html, /<form class="frame-command" method="get" action="\/dashboard\/search" role="search">/);
   assert.match(html, /<a class="frame-vega" href="\/dashboard\/team\?worker=vega">Ask Vega<\/a>/);
-  assert.match(html, /<summary class="frame-account-name"[^>]*>Dylan<\/summary>/);
+  assert.match(html, /<summary class="frame-account-name" aria-label="Dylan" title="Dylan"><span class="frame-avatar" aria-hidden="true">DY<\/span><svg class="frame-chevron" width="16"/);
+  assert.match(html, /<div class="frame-menu-name">Dylan<\/div>/);
+  assert.match(html, /<a role="menuitem" href="\/settings">Settings<\/a>/);
   assert.match(html, /<form method="post" action="\/logout"><button type="submit" role="menuitem">Sign out<\/button><\/form>/);
   assert.match(html, /data-kind="tools" data-section="team"/);
 });
@@ -94,9 +102,36 @@ test('tokens.css defines what frame.css needs', () => {
 
 test('hidden: a product can leave sections without a screen out of the menu; the active one always shows', () => {
   const html = frame({ active: 'advertisers', kind: 'stats', hidden: ['leads', 'money', 'outreach'] });
-  const labels = [...html.matchAll(/<a class="frame-section" [^>]*>([^<]+)<\/a>/g)].map((m) => m[1]);
+  const labels = [...html.matchAll(/<span class="frame-section-label">([^<]+)<\/span>/g)].map((m) => m[1]);
   assert.deepEqual(labels, ['Dashboard', 'Publishers', 'Offers', 'Advertisers', 'Reports', 'Team']);
   const stillActive = frame({ active: 'money', kind: 'stats', hidden: ['money'] });
-  assert.match(stillActive, /aria-current="page">Money</);
+  assert.match(stillActive, /aria-current="page"><svg[^>]*>.*?<\/svg><span class="frame-section-label">Money</);
   assert.throws(() => frame({ active: 'team', kind: 'tools', hidden: ['nope'] }), /Unknown section to hide/);
+});
+
+test('account trigger: initials in a circle, the full name as label, title and first menu line', () => {
+  assert.equal(initials('Dylan Young'), 'DY');
+  assert.equal(initials('dylan@datify.ai'), 'DY');
+  assert.equal(initials('Account'), '');
+  assert.equal(initials(''), '');
+  const named = frame({ active: 'team', kind: 'tools', user: { ...user, name: 'Dylan Young' } });
+  assert.match(named, /aria-label="Dylan Young" title="Dylan Young"><span class="frame-avatar" aria-hidden="true">DY<\/span>/);
+  assert.match(named, /<div class="frame-menu-name">Dylan Young<\/div>/);
+  const email = frame({ active: 'team', kind: 'tools', user: { ...user, name: 'dylan@datify.ai' } });
+  assert.match(email, /<span class="frame-avatar" aria-hidden="true">DY<\/span>/);
+  const generic = frame({ active: 'team', kind: 'tools', user: { ...user, name: 'Account' } });
+  assert.match(generic, /<span class="frame-avatar" aria-hidden="true"><svg class="frame-avatar-icon" width="16" height="16"[^>]*aria-hidden="true"/);
+  assert.doesNotMatch(generic, /class="frame-avatar" aria-hidden="true">[A-Z]/);
+  assert.match(generic, /aria-label="Account"/);
+});
+
+test('frame.css: selected section is the accent on its tint; the phone strip hides icons and keeps the underline', () => {
+  const css = readFileSync(new URL('../src/frame.css', import.meta.url), 'utf8');
+  assert.match(css, /\.frame-section\[aria-current="page"\][^{]*\{[^}]*color: var\(--color-accent\);[^}]*background: var\(--color-accent-tint\);/);
+  assert.doesNotMatch(css, /border-left/);
+  const phone = css.slice(css.indexOf('@media (max-width: 800px)'));
+  assert.match(phone, /\.frame-icon \{\s*display: none;/);
+  assert.match(phone, /border-bottom-color: var\(--color-text\)/);
+  const tokens = readFileSync(new URL('../dist/tokens.css', import.meta.url), 'utf8');
+  assert.match(tokens, /--color-accent-tint:/);
 });

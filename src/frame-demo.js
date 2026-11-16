@@ -22,7 +22,7 @@ export function renderFrameDemo() {
     hrefs: { dashboard: '/dashboard' },
     command: { action: '/search', placeholder: 'Jump to…' },
     vega: '/vega',
-    user: { name: 'Dylan', menu: [{ label: 'Settings', href: '/settings' }], signOutAction: '/logout' },
+    user: { name: 'Dylan Young', menu: [{ label: 'Settings', href: '/settings' }], signOutAction: '/logout' },
     toolbar: toolbar({
       freshness: { word: 'Updated 2:45 PM ET', status: 'good', sources: [{ name: 'Postbacks', at: '2:45 PM' }] },
       range: {
