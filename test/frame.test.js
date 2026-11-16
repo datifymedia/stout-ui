@@ -34,7 +34,7 @@ test('products place sections where they live; the bar has brand, command bar, A
   });
   assert.match(html, /href="https:\/\/dash\.datify\.ai\/dashboard"( aria-current="page")?><svg[^>]*>.*?<\/svg><span class="frame-section-label">Dashboard</);
   assert.match(html, /href="\/dashboard\/team" aria-current="page"><svg[^>]*>.*?<\/svg><span class="frame-section-label">Team</);
-  assert.match(html, /<a class="frame-brand" href="https:\/\/dash\.datify\.ai\/">Datify<\/a>/);
+  assert.match(html, /<a class="frame-brand" href="https:\/\/dash\.datify\.ai\/" aria-label="Datify — Go to dashboard" title="Go to dashboard">Datify<\/a>/, 'no logo URL: the word, still a labelled dashboard link');
   assert.match(html, /<form class="frame-command" method="get" action="\/dashboard\/search" role="search">/);
   assert.match(html, /<a class="frame-vega" href="\/dashboard\/team\?worker=vega">Ask Vega<\/a>/);
   assert.match(html, /<summary class="frame-account-name" aria-label="Dylan" title="Dylan"><span class="frame-avatar" aria-hidden="true">DY<\/span><svg class="frame-chevron" width="16"/);
@@ -134,4 +134,23 @@ test('frame.css: selected section is the accent on its tint; the phone strip hid
   assert.match(phone, /border-bottom-color: var\(--color-text\)/);
   const tokens = readFileSync(new URL('../dist/tokens.css', import.meta.url), 'utf8');
   assert.match(tokens, /--color-accent-tint:/);
+});
+
+test('the logo: one labelled dashboard link in the bar, the supplied image at its own aspect ratio', async () => {
+  const { brand, LOGO } = await import('../src/frame.js');
+  const { readFileSync } = await import('node:fs');
+  const html = frame({ active: 'offers', kind: 'management', user, home: 'https://dash.datify.ai/dashboard', logo: '/assets/stout/datify-logo.png', body: '' });
+  assert.equal((html.match(/class="frame-brand"/g) || []).length, 1, 'one brand mark per screen');
+  assert.equal((html.match(/datify-logo\.png/g) || []).length, 1);
+  assert.match(html, /<header class="frame-bar">\s*<a class="frame-brand" href="https:\/\/dash\.datify\.ai\/dashboard" aria-label="Datify — Go to dashboard" title="Go to dashboard"><img class="frame-logo" src="\/assets\/stout\/datify-logo\.png" alt="" width="521" height="128" decoding="async"><\/a>/);
+  assert.doesNotMatch(html.slice(html.indexOf('frame-side')), /datify-logo/, 'not repeated in the side menu');
+  assert.equal(brand({ home: '/x"y', logo: '/l.png' }).includes('href="/x&quot;y"'), true, 'escaped');
+  // The PNG's own size matches what the page reserves (no stretching).
+  const png = readFileSync(new URL('../assets/datify-logo.png', import.meta.url));
+  assert.equal(png.readUInt32BE(16), LOGO.width);
+  assert.equal(png.readUInt32BE(20), LOGO.height);
+  const css = readFileSync(new URL('../src/frame.css', import.meta.url), 'utf8');
+  assert.match(css, /\.frame-logo \{[^}]*height: var\(--space-32\);[^}]*width: auto;/);
+  assert.match(css, /\.frame-brand:focus-visible \{/);
+  assert.match(css, /\.frame-brand:hover \{/);
 });

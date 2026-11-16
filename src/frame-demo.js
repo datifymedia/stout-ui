@@ -20,6 +20,8 @@ export function renderFrameDemo() {
     active: 'reports',
     kind: 'stats',
     hrefs: { dashboard: '/dashboard' },
+    home: '/dashboard',
+    logo: '../assets/datify-logo.png',
     command: { action: '/search', placeholder: 'Jump to…' },
     vega: '/vega',
     user: { name: 'Dylan Young', menu: [{ label: 'Settings', href: '/settings' }], signOutAction: '/logout' },
