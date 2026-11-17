@@ -139,6 +139,42 @@
   white-space: nowrap;
 }
 
+/* The phone's search button: hidden on wider screens, where the command bar
+   sits in the bar itself. */
+.frame-search {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-48);
+  min-height: var(--space-48);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-control);
+  background: none;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.frame-search:hover,
+.frame-search[aria-expanded="true"] {
+  background: var(--color-hover);
+}
+
+.frame-search:focus-visible {
+  outline: var(--rule-strong);
+  outline-color: var(--color-accent);
+  outline-offset: calc(var(--space-4) / 2);
+}
+
+.frame-search-icon {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .frame-account {
   position: relative;
 }
@@ -424,7 +460,8 @@
   .frame {
     background: var(--color-page);
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: var(--layout-bar) auto minmax(0, 1fr);
+    /* The bar row grows when the search opens; the strip below it moves down. */
+    grid-template-rows: auto auto minmax(0, 1fr);
     grid-template-areas:
       "bar"
       "side"
@@ -432,12 +469,39 @@
   }
 
   .frame-bar {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: var(--layout-bar);
     padding: 0 var(--space-16);
     gap: var(--space-8);
   }
 
+  /* The search button replaces the squeezed command field. Tapping it opens
+     the full command bar as its own row under the bar items. Without the
+     behaviour script the form simply stays visible. */
+  .frame-search {
+    display: inline-flex;
+  }
+
   .frame-command {
+    flex: 1 1 100%;
+    order: 10;
     max-width: none;
+    margin: 0 0 var(--space-8);
+  }
+
+  .frame-bar.has-search-toggle .frame-command {
+    display: none;
+  }
+
+  .frame-bar.has-search-toggle.is-search-open .frame-command {
+    display: block;
+  }
+
+  /* While the search is open the strip sits in flow under it instead of
+     sticking under the bar's usual height. */
+  .frame-bar.is-search-open ~ .frame-side {
+    position: static;
   }
 
   .frame-kbd {
@@ -471,6 +535,12 @@
 
   .frame-side::-webkit-scrollbar {
     display: none;
+  }
+
+  /* The strip holds every section; a fade at the right edge says it scrolls. */
+  .frame-side {
+    -webkit-mask-image: linear-gradient(to right, var(--color-text) calc(100% - var(--space-48)), transparent);
+    mask-image: linear-gradient(to right, var(--color-text) calc(100% - var(--space-48)), transparent);
   }
 
   .frame-side ul {
