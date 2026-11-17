@@ -39,7 +39,7 @@ export const SECTIONS = [
   { key: 'advertisers', label: 'Advertisers' },
   { key: 'reports', label: 'Reports' },
   { key: 'money', label: 'Money' },
-  { key: 'outreach', label: 'Outreach' },
+  { key: 'outreach', label: 'Orchestrator' },
   { key: 'team', label: 'Team' },
 ].map((s) => ({ ...s, icon: icon(s.key) }));
 

@@ -8,7 +8,7 @@ const user = { name: 'Dylan', menu: [{ label: 'Settings', href: '/settings' }], 
 
 test('the side menu holds the nine sections in order, the active one marked', () => {
   const html = frame({ active: 'offers', kind: 'management', user, body: '<p>hi</p>' });
-  assert.deepEqual(SECTIONS.map((s) => s.label), ['Dashboard', 'Publishers', 'Offers', 'Leads', 'Advertisers', 'Reports', 'Money', 'Outreach', 'Team']);
+  assert.deepEqual(SECTIONS.map((s) => s.label), ['Dashboard', 'Publishers', 'Offers', 'Leads', 'Advertisers', 'Reports', 'Money', 'Orchestrator', 'Team']);
   const links = [...html.matchAll(/<a class="frame-section" href="([^"]+)"( aria-current="page")?>(<svg[^>]*>.*?<\/svg>)<span class="frame-section-label">([^<]+)<\/span><\/a>/g)]
     .map(([, href, current, svg, label]) => [null, href, current, label, svg]);
   assert.equal(links.length, 9);
